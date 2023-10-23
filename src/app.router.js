@@ -1,8 +1,10 @@
+import connectDB from '../DB/connection.js'
 import categoriesRouter from './modules/categories/categories.router.js'
 import productsRouter from './modules/products/products.router.js'
 
 const initApp=(app,express)=>{
     app.use(express.json())
+    connectDB()
     app.get('/',(req,res)=>{
         return res.json('welcome')
     })
