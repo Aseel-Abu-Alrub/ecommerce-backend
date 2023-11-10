@@ -16,7 +16,7 @@ export const createCategories=async(req,res,next)=>{
     const {secure_url,public_id}=await cloudinary.uploader.upload(req.file.path,{
         folder:`${process.env.APP_NAME}/categories`
     })
-    const cat=await categoryModel.create({name,slug:slugify(name),image:{secure_url,public_id}})
+    const cat=await categoryModel.create({name,slug:slugify(name),image:{secure_url,public_id},createdBy:req.user.id})
     return res.status(201).json({message:"success",cat})
 }
 export const getspecificCategories=async(req,res,next)=>{
@@ -49,9 +49,12 @@ export const updateCategories=async(req,res,next)=>{
         const {secure_url,public_id}=await cloudinary.uploader.upload(req.file.path,{
             folder:`${process.env.APP_NAME}/categories`
         })
+
+
         await cloudinary.uploader.destroy(category.image.public_id)
         category.image={secure_url,public_id}
     }
+    category.updateddBy=req.user.id
     await category.save()
     return res.status(200).json({message:"success"})    
 }  
