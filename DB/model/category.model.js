@@ -23,12 +23,12 @@ const categorySchema=new Schema({
 createdBy:{
     type:Types.ObjectId,
     ref:'User',
-    required:true
-},
+    required:true 
+},  
 updateddBy:{
-    type:Types.ObjectId,
-    ref:'User',
-    required:true
+    type:Types.ObjectId,  
+    ref:'User',  
+    // required:true
 },
 
 

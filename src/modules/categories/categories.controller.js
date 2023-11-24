@@ -13,14 +13,12 @@ export const createCategories=async(req,res,next)=>{
         return res.status(409).json({message:"category name already exists"})
     }
 
-    const {secure_url,public_id}=await cloudinary.uploader.upload(req.file.path,{
-        folder:`${process.env.APP_NAME}/categories`
-    })
+   c
     const cat=await categoryModel.create({name,slug:slugify(name),image:{secure_url,public_id},createdBy:req.user.id})
     return res.status(201).json({message:"success",cat})
 }
 export const getspecificCategories=async(req,res,next)=>{
-const{id}=req.params
+const{id}=req.params 
 const category=await categoryModel.findById(id)
 return res.status(200).json({message:"success",category}) 
 

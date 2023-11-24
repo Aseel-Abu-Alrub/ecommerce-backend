@@ -40,6 +40,10 @@ const userSchema=new Schema({
             type:String,
             default:'Active',
             enum:['Active','Inactive']
+        },
+        sendCode:{
+            type:String,
+            default:null
         }
 },{
     timestamps:true
