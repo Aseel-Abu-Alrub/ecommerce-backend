@@ -44,6 +44,15 @@ const userSchema=new Schema({
         sendCode:{
             type:String,
             default:null
+        },
+        changePasswordTime:{
+           type:Date 
+        },
+        phoneNumber:{
+            type:String
+        },
+        address:{
+            type:String
         }
 },{
     timestamps:true

@@ -12,8 +12,10 @@ export const createCategories=async(req,res,next)=>{
     if(await categoryModel.findOne({name})){
         return res.status(409).json({message:"category name already exists"})
     }
-
-   c
+    const {secure_url,public_id}=await cloudinary.uploader.upload(req.file.path,{
+        folder:`${process.env.APP_NAME}/categories`
+    })
+   
     const cat=await categoryModel.create({name,slug:slugify(name),image:{secure_url,public_id},createdBy:req.user.id})
     return res.status(201).json({message:"success",cat})
 }
@@ -29,7 +31,7 @@ export const updateCategories=async(req,res,next)=>{
     if(!category){
         return res.status(404).json({message:`invalid category id ${req.params.id}`})
     }
-
+ 
     if(req.body.name){
         if(await categoryModel.findOne({name:req.body.name}).select("name")){
             return res.status(409).json({message:`category ${req.body.name} already exists`})            

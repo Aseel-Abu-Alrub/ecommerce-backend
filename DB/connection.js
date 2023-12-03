@@ -10,4 +10,4 @@ return await mongoose.connect(process.env.DB)
 })
 }
 
-export default connectDB
+export default connectDB 

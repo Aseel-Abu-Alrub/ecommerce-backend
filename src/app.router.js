@@ -5,6 +5,8 @@ import categoryRouter from './modules/subcategory/subcategory.router.js'
 import AuthRouter from './modules/auth/auth.router.js'
 import couponRouter from './modules/coupon/coupon.router.js'
 import cartRouter from './modules/cart/cart.router.js'
+import orderRouter from './modules/order/order.router.js'
+import { globalErrorHandler } from './services/errorHandling.js'
 
 const initApp=(app,express)=>{
     app.use(express.json())
@@ -18,9 +20,13 @@ const initApp=(app,express)=>{
     app.use('/products',productsRouter)
     app.use('/coupon',couponRouter)
     app.use('/cart',cartRouter)
+    app.use('/order',orderRouter)
+
     app.get('/*',(req,res)=>{
         return res.json('page not found')
     })
+
+    app.use(globalErrorHandler)
 }
 
 export default initApp

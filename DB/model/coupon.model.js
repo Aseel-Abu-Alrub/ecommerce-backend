@@ -13,7 +13,6 @@ const couponSchema=new Schema({
    },
 
    usedBy:[{type:Types.ObjectId,ref:'User'}],
-   expierDate:Date,
   
 createdBy:{
     type:Types.ObjectId,
@@ -23,7 +22,10 @@ updateddBy:{
     type:Types.ObjectId,
     ref:'User'
 },
-
+expireDate:{
+type:Date,
+required:true
+},
 isDeleted:{
 type:Boolean,
 default:false

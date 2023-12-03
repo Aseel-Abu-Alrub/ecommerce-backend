@@ -3,7 +3,8 @@ import userModel from '../../DB/model/user.model.js'
 
 export const roles={
     Admin:'Admin',
-    User:'User'
+    User:'User',
+    HR:'HR'
 }
 
 export const auth=(accessRole=[])=>{
@@ -19,11 +20,14 @@ return async(req,res,next)=>{
 
     }
 
-    const user=await userModel.findById(decoded.id).select("role userName ")
+    const user=await userModel.findById(decoded.id).select("role userName  changePasswordTime ")
 
     if(!user){
         return res.status(404).json({message:"not registerd user"})
 
+    }
+    if(parseInt(user.changePasswordTime?.getTime()/1000)>decoded.iat){
+        return next(new Error("expired token ,plz login again",{cause:400}))
     }
 
     if(!accessRole.includes(user.role)){

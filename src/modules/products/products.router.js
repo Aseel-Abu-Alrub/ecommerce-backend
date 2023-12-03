@@ -13,5 +13,5 @@ router.post('/',auth(endPoint.create),fileupload2(fileValidation2.image).fields(
 
 
 ]),productController.createProduct)
-
+router.put('/:id',productController.updateProduct)
 export default router

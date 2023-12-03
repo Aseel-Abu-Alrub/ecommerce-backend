@@ -1,19 +1,19 @@
 import couponModel from "../../../DB/model/coupon.model.js"
 
 export const createCoupon= async(req,res,next)=>{
-    const{name,amout}=req.body
-
+    const{name}=req.body
+    req.body.expireDate=new Date(req.body.expireDate)
     if(await couponModel.findOne({name})){
       return res.status(404).json({message:`coupon ${name} already exists`})
     }
-
+ 
     const coupon=await couponModel.create(req.body)
     return res.status(201).json({message:"success",coupon})
 }
 
 export const getCoupon=async(req,res,next)=>{
 
-const coupon=await couponModel.find({})
+const coupon=await couponModel.find({}) 
 
 return res.status(201).json({message:"success",coupon})
 }
