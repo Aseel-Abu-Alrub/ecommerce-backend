@@ -78,6 +78,7 @@ export const confirmEmail=async(req,res,next)=>{
    }
    return res.json({message:"your email is verified"})
 }
+
 export const signin=async(req,res,next)=>{
     const{email,password}=req.body
     const user=await userModel.findOne(({email}))

@@ -83,3 +83,54 @@ await cartModel.updateOne({userId:req.user._id},{products:[]})
 return res.status(201).json({message:"success",order})
 
 } 
+
+export const cancelOrder=async(req,res,next)=>{
+ const{orderId}=req.params
+ const order=await orderModel.findOne({_id:orderId,userId:req.user._id}) 
+ if(!order){
+  return next(new Error('Invalid order',{cause:404}))
+ }
+ if(order.status!='pending'){
+  return next(new Error('can not cancel this order',{cause:404}))
+
+ }
+
+ const canceledOrder=await orderModel.findByIdAndUpdate(orderId,{status:'canceled',updatedBy:req.user._id},{new:true})
+
+ for(const product of order.products){
+  await productModel.updateOne({_id:product.productId},{$inc:{stock:product.quantity}})
+ }
+ if(order.copounName){
+await couponModel.updateOne({name:order.copounName},{$pull:{usedBy:order.userId}})
+ }
+ return res.status(200).json({message:"success",canceledOrder})
+}
+
+export const getOrder=async(req,res,next)=>{
+  const order=await orderModel.find({userId:req.user._id})
+  return res.status(200).json({message:"success",order})
+}
+
+export const changeStatus=async(req,res,next)=>{
+ const{orderId}=req.params
+ const order=await orderModel.findById(orderId) 
+
+ if(!order){
+  return next(new Error('Invalid order',{cause:404}))
+
+ }
+ if(order.status == 'canceled' || order.status == 'deliverd'){
+  return next(new Error(`can't cancel this order`,{cause:404}))
+
+ }
+ const newOrder=await orderModel.findByIdAndUpdate(orderId,{status:'canceled',updatedBy:req.user._id},{new:true})
+
+ for(const product of order.products){
+  await productModel.updateOne({_id:product.productId},{$inc:{stock:product.quantity}})
+ }
+if(order.copounName){
+  await couponModel.updateOne({name:order.copounName},{$pull:{usedBy:order.userId}})
+}
+ return res.status(202).json({message:"success",newOrder})
+
+}

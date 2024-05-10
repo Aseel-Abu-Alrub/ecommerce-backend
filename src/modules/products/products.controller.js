@@ -3,11 +3,41 @@ import categoryModel from "../../../DB/model/category.model.js"
 import SubCategoryModel from "../../../DB/model/subcategory.model.js"
 import cloudinary from '../../services/cloudinery.js'
 import productModel from "../../../DB/model/product.model.js"
+import { pagination } from "../../services/pagination.js"
 
 export const getproducts=async(req,res,next)=>{
-   const product=await productModel.find()
+    const{skip,limit}=pagination(req.query.page,req.query.limit)
+    let queryObj={...req.query}
 
-   return res.status(200).json({message:"success",product})
+    const execQuery=['page','limit','skip','sort','search','fields']
+     execQuery.map((ele)=>{
+        delete queryObj[ele]
+     })
+       
+     //filter
+      queryObj=JSON.stringify(queryObj)
+     queryObj=queryObj.replace(/\b(gt|gte|lt|lte|in|nin|eq|neq)\b/g,match=>`$${match}`)
+     queryObj=JSON.parse(queryObj)
+     const moongooseQuery=productModel.find(queryObj).skip(skip).limit(limit)
+
+    //search
+    if(req.query.search){
+        moongooseQuery.find({
+            $or: [
+            {name:{$regex:req.query.search,$options:'i'}},
+            {description:{$regex:req.query.search,$options:'i'}}
+        
+            ]
+         })
+    
+    }
+    
+     moongooseQuery.select(req.query.fields?.replaceAll(',',' '))
+
+     //sort
+   const product=await moongooseQuery.sort(req.query.sort?.replaceAll(',',' '))
+  const count=await productModel.estimatedDocumentCount()
+   return res.status(200).json({message:"success",page:product.length,count:count,product})
 }
 
 export const createProduct=async(req,res,next)=>{
@@ -17,6 +47,11 @@ const checkCategory=await categoryModel.findById(categoryId)
 
 if(!checkCategory){ 
     return res.status(404).json({message:"category not found"})
+}
+if(req.body.name){
+if(await productModel.findOne({name:req.body.name}).select("name")){
+  return next(new Error(`product ${req.body.name} already exists`))  
+}
 }
 
 const checkSubCategory=await SubCategoryModel.findById(subCategoryId)

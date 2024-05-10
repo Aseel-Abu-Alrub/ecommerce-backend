@@ -26,7 +26,7 @@ return async(req,res,next)=>{
         return res.status(404).json({message:"not registerd user"})
 
     }
-    if(parseInt(user.changePasswordTime?.getTime()/1000)>decoded.iat){
+    if(parseInt(user.changePasswordTime?.getTime()/1000)>decoded.iat){ 
         return next(new Error("expired token ,plz login again",{cause:400}))
     }
 

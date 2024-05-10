@@ -6,14 +6,18 @@ import AuthRouter from './modules/auth/auth.router.js'
 import couponRouter from './modules/coupon/coupon.router.js'
 import cartRouter from './modules/cart/cart.router.js'
 import orderRouter from './modules/order/order.router.js'
+import userRouter from './modules/user/user.router.js'
+import cors from 'cors'
 import { globalErrorHandler } from './services/errorHandling.js'
 
 const initApp=(app,express)=>{
+    app.use(cors())
     app.use(express.json())
     connectDB()
     app.get('/',(req,res)=>{
         return res.json('welcome')
     })
+    app.use('userPdf',express.static('./'))
     app.use('/auth',AuthRouter)
     app.use('/categories',categoriesRouter)
     app.use('/subcategory',categoryRouter)
@@ -21,6 +25,8 @@ const initApp=(app,express)=>{
     app.use('/coupon',couponRouter)
     app.use('/cart',cartRouter)
     app.use('/order',orderRouter)
+    app.use('/profile',userRouter)
+
 
     app.get('/*',(req,res)=>{
         return res.json('page not found')
