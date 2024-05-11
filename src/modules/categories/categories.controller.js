@@ -92,7 +92,7 @@ export const getActiveCategory = async (req, res, next) => {
     .find({ status: "Active" })
     .skip(skip)
     .limit(limit)
-    .select("name status");
+    .select();
 
   return res
     .status(200)
