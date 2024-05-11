@@ -3,7 +3,7 @@ export function pagination(page,limit){
     page=1
     }
     if(!limit || limit<=0){
-    limit=5
+    limit=6
     }
 
     const skip=(page-1)*limit
