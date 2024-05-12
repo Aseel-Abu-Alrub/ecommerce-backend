@@ -1,4 +1,5 @@
 import mongoose, { Schema,Types,model } from "mongoose";
+import { type } from "os";
 
 const productSchema=new Schema({
     name:{
@@ -12,6 +13,10 @@ const productSchema=new Schema({
     type:String,
     required:true
    },
+   rating:{
+    type:Number,
+    default:1
+   },
    discription:{
     type:String,
     required:true
@@ -20,9 +25,16 @@ const productSchema=new Schema({
     type:Number,
     default:1
    },
+   color:{
+   type:String 
+   },
    price:{
     type:Number,
     required:true
+   },
+   size:{
+    type:String,
+
    },
    finalPrice:{
     type:Number,
