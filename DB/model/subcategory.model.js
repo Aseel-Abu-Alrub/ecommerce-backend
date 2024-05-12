@@ -13,7 +13,7 @@ const SubCategorySchema=new Schema({
    },
    image:{
     type:Object,
-    required:true
+    // required:true
    },
    status:{
     type:String,
