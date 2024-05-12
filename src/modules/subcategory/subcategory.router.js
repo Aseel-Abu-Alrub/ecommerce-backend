@@ -4,7 +4,7 @@ import { Router } from "express";
 const router=Router({mergeParams:true})
 
 
-router.post('/',SubcategoriesController.createSubCategory)
+router.post('/',fileupload2(fileValidation2.image).single('image'),SubcategoriesController.createSubCategory)
 router.get('/',SubcategoriesController.getSubCategory)
 
 
