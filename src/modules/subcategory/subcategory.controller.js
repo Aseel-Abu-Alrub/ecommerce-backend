@@ -18,11 +18,11 @@ export const createSubCategory=async(req,res,next)=>{
     return res.status(409).json({message:"category not found"})
 
   }   
-  const {secure_url,public_id}=await cloudinary.uploader.upload(req.file.path,{
-    folder:`${process.env.APP_NAME}/subcategories`
-})
+//   const {secure_url,public_id}=await cloudinary.uploader.upload(req.file.path,{
+//     folder:`${process.env.APP_NAME}/subcategories`
+// })
 
-const subCategory2=await SubCategoryModel.create({name,slug:slugify(name),categoryId,image:{secure_url,public_id}})
+const subCategory2=await SubCategoryModel.create({name,slug:slugify(name),categoryId})
 
 return res.status(201).json({message:"success",subCategory2}) 
 }
