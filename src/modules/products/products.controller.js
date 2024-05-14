@@ -35,7 +35,7 @@ export const getproducts=async(req,res,next)=>{
      moongooseQuery.select(req.query.fields?.replaceAll(',',' '))
 
      //sort
-   const product=await moongooseQuery.sort(req.query.sort?.replaceAll(',',' '))
+   const product=await moongooseQuery.sort(req.query.sort?.replaceAll(',',' ')).populate('categoryId','name')
   const count=await productModel.estimatedDocumentCount()
    return res.status(200).json({message:"success",page:product.length,count:count,product})
 }
