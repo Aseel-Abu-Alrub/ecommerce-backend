@@ -42,18 +42,37 @@ export const getproducts=async(req,res,next)=>{
 
 export const createProduct=async(req,res,next)=>{
     // return res.json(req.files) 
-const{name,price,discount,categoryId,subCategoryId}=req.body
+    try{
+        const{name,price,discount,categoryId,subCategoryId}=req.body
 const checkCategory=await categoryModel.findById(categoryId)
 
-if(!checkCategory){ 
+if(!checkCategory){  
     return res.status(404).json({message:"category not found"})
 }
-if(req.body.name){
+
+
+
+if(req.body.name ){
 if(await productModel.findOne({name:req.body.name}).select("name")){
-  return next(new Error(`product ${req.body.name} already exists`))  
-}
+    await productModel.updateOne({name:req.body.name,'colors.color':{$ne:req.body.color}}
+        ,{
+      $push:{colors:{
+        color:req.body.color
+      }}})
+
+      await productModel.updateOne({name:req.body.name}
+        ,{
+      $push:{size:{
+        sizee:req.body.sizee
+      }}})
+    return next(new Error(`product ${req.body.name} already exists`,{cause:404}))
+    
+    }
 }
 
+
+
+   
 const checkSubCategory=await SubCategoryModel.findById(subCategoryId)
 if(!checkSubCategory){ 
     return res.status(404).json({message:"sub category not found"})
@@ -79,14 +98,36 @@ req.body.updateddBy=req.user._id
 
 const product=await productModel.create(req.body)
 
+await productModel.updateOne({name:req.body.name}
+    ,{
+  $push:{colors:{
+    color:req.body.color
+  }}})
+
+  if(req.body.sizee){
+    await productModel.updateOne({name:req.body.name}
+        ,{
+      $push:{size:{
+        sizee:req.body.sizee
+      }}})
+  }
+ 
+
 if(!product){
     return res.status(400).json({message:"error while creating product"})
 
 }
+
+
 return res.status(200).json({message:"success",product})
 
+}
+catch(err){
+   return res.json(err) 
+}   
+
 } 
- 
+
 export const updateProduct=async(req,res,next)=>{
    
 

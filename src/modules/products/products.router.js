@@ -2,7 +2,9 @@ import { auth } from '../../middleware/auth.js';
 import fileupload2, { fileValidation2 } from '../../services/multer.js';
 import { endPoint } from './product.endpoint.js';
 import * as productController from './products.controller.js'
+import * as validator from "./product.validation.js" 
 import { Router } from "express";
+import { validation } from '../../middleware/validation.js';
 const router=Router()
 
 

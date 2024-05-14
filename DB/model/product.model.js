@@ -1,21 +1,24 @@
 import mongoose, { Schema,Types,model } from "mongoose";
 import { type } from "os";
 
+
+
 const productSchema=new Schema({
     name:{
         type:String,
         required:true,
-        unique:true,
+         unique:true,
         trim:true
     },
     
-   slug:{
+   slug:{ 
     type:String,
     required:true
    },
    rating:{
     type:Number,
-    default:1
+    default:1,
+    min:1,max:5
    },
    discription:{
     type:String,
@@ -25,20 +28,21 @@ const productSchema=new Schema({
     type:Number,
     default:1
    },
-   color:{
-   type:String 
-   },
+   colors:[{
+    color:{type:String}, 
+   }],
    price:{
     type:Number,
     required:true
    },
-   size:{
-    type:String,
-
-   },
+   size:[{
+    sizee:{type:String}
+   }]
+   
+   ,
    finalPrice:{
     type:Number,
-   },
+   }, 
 
    discount:{
     type:Number,

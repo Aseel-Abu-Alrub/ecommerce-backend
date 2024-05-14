@@ -11,8 +11,9 @@ export const createProduct=joi.object({
     file:joi.object({
     mainImage:joi.array().items(generalFields.file.required()).length(1),
     subImages:joi.array().items(generalFields.file.required()).min(2).max(4)
-
+     
     }),
+   
     status:joi.string().valid('Active','Inactive'),
     categoryId:generalFields.id.required(),
     subCategoryId:generalFields.id.required(),
