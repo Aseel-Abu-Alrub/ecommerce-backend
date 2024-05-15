@@ -37,7 +37,15 @@ updateddBy:{
 
       
 },{
-    timestamps:true
+    timestamps:true,
+    toObject:{virtuals:true},
+    toJSON:{virtuals:true}
+})
+
+SubCategorySchema.virtual('product',{
+ localField:'_id',
+ foreignField:'subCategoryId',
+ ref:'Product'  
 })
 
 const SubCategoryModel= mongoose.models.SubCategory || model('SubCategory',SubCategorySchema)

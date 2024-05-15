@@ -5,7 +5,7 @@ import * as productController from './products.controller.js'
 import * as validator from "./product.validation.js" 
 import { Router } from "express";
 import { validation } from '../../middleware/validation.js';
-const router=Router()
+const router=Router({mergeParams:true})
 
 
 router.get('/',productController.getproducts)
@@ -16,4 +16,6 @@ router.post('/',auth(endPoint.create),fileupload2(fileValidation2.image).fields(
 
 ]),productController.createProduct)
 router.put('/:id',productController.updateProduct)
+
+router.get('/',productController.getSpesificProduct)
 export default router
