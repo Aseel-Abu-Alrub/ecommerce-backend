@@ -48,3 +48,13 @@ export const getSubCategory=async(req,res,next)=>{
     }
 
 }
+
+export const getSpesificSubCategory=async(req,res,next)=>{
+  const{id}=req.params
+
+  const subCat=await SubCategoryModel.findById(id).populate({path:'product'})
+
+
+        return res.status(200).json({message:"success",page:subCat.length,subCat})
+
+}

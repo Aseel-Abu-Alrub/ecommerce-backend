@@ -6,6 +6,7 @@ import productModel from "../../../DB/model/product.model.js"
 import { pagination } from "../../services/pagination.js"
 
 export const getproducts=async(req,res,next)=>{
+ 
     const{skip,limit}=pagination(req.query.page,req.query.limit)
     let queryObj={...req.query}
 
@@ -171,21 +172,4 @@ export const updateProduct=async(req,res,next)=>{
     return res.status(202).json({message:"success",product}) 
    }
 
-   export const getSpesificProduct=async(req,res,next)=>{
-    try{
-       const subCategoryId=req.params.id
-
-       const subcategories=await SubCategoryModel.findById(subCategoryId)
-       if(!subcategories){
-        return res.status(409).json({message:"sub category not found"})
-
-       }
-
-       const product=await productModel.find({subCategoryId}).populate({path:'subCategoryId'})
-       return res.status(200).json({message:"success",product})
-
-    }
-    catch(error){
-      return res.json(error)
-    }
-   }
+   
