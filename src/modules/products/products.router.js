@@ -17,4 +17,5 @@ router.post('/',auth(endPoint.create),fileupload2(fileValidation2.image).fields(
 router.put('/:id',productController.updateProduct)
 
 router.patch('/:id/rating',productController.updateRating)
+router.patch('/:id/decrease',productController.decreaseRating)
 export default router
