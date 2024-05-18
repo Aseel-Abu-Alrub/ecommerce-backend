@@ -177,19 +177,25 @@ export const updateProduct=async(req,res,next)=>{
     if(!product){
       return res.status(400).json({message:`product with if ${req.params.id} not found `})
     } 
-
+    if(product.rating>4){
+      return res.json("rating more than 5")
+        }
      const ratingg= await productModel.findByIdAndUpdate({_id:req.params.id},{$inc:{rating:1}})
-    
-   return res.status(200).json({message:"success",ratingg})
    
+   return res.status(200).json({message:"success",ratingg})
+    
    }
-
+  
    export const decreaseRating=async(req,res,next)=>{
 
     const product=await productModel.findById(req.params.id)
     if(!product){
       return res.status(400).json({message:`product with if ${req.params.id} not found `})
     } 
+
+    if(product.rating<1){
+      return res.json("rating less than 0")
+        }
 
      const ratingg= await productModel.findByIdAndUpdate({_id:req.params.id},{$inc:{rating:-1}})
     

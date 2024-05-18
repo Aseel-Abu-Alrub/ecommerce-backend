@@ -18,7 +18,8 @@ const productSchema=new Schema({
    rating:{
     type:Number,
     default:1,
-    min:1,max:5
+    min:1,
+    max:5
    },
    discription:{
     type:String,
