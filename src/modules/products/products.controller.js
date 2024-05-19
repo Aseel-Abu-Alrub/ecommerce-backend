@@ -202,3 +202,17 @@ export const updateProduct=async(req,res,next)=>{
    return res.status(200).json({message:"success",ratingg})
    
    }
+
+   export const getSpesificProduct=async(req,res,next)=>{
+    const productId=req.params.id
+    const product=await productModel.findById({_id:productId})
+
+if(!product){
+  return next(new Error(`product with id ${productId} not found`,{cause:404}))
+}
+
+const newProduct=await productModel.findOne({_id:productId})
+return res.status(200).json({message:"success",count:newProduct.length,newProduct})
+
+
+   }

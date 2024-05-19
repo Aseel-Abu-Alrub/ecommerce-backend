@@ -5,6 +5,7 @@ import * as productController from './products.controller.js'
 import * as validator from "./product.validation.js" 
 import { Router } from "express";
 import { validation } from '../../middleware/validation.js';
+import { asyncHandler } from '../../services/errorHandling.js';
 const router=Router()
 
 
@@ -18,4 +19,6 @@ router.put('/:id',productController.updateProduct)
 
 router.patch('/:id/rating',productController.updateRating)
 router.patch('/:id/decrease',productController.decreaseRating)
+router.get('/:id', asyncHandler(productController.getSpesificProduct))
+
 export default router

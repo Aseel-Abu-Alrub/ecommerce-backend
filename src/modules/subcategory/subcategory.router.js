@@ -8,5 +8,4 @@ router.get('/',SubcategoriesController.getSubCategory)
 router.get('/:id',SubcategoriesController.getSpesificSubCategory)
 
 
-
 export default router  
