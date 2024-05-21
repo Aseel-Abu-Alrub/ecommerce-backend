@@ -16,7 +16,10 @@ const initApp=(app,express)=>{
     //     credentials:true,            
     //optionSuccessStatus:200
     // }
-    app.use('*',cors());
+    app.use(cors({
+        origin:'*'
+    }
+    ));
     app.use(express.json())
     connectDB()
     app.get('/',(req,res)=>{
