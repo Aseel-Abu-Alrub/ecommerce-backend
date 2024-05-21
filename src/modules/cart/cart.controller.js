@@ -1,8 +1,14 @@
 import cartModel from "../../../DB/model/cart.model.js"
+import productModel from "../../../DB/model/product.model.js"
 
 export const createCart=async(req,res,next)=>{
-    const{productId,quantity}=req.body
+     const productId=req.params.id
+    const{quantity}=req.body
+    
+    if(!await productModel.findById({_id:productId})){
+        return res.status(200).json({message:"product not found"})
 
+    }
     const cart=await cartModel.findOne({userId:req.user._id})
 
     if(!cart){
