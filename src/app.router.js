@@ -17,7 +17,9 @@ const initApp=(app,express)=>{
     //optionSuccessStatus:200
     // }
     app.use(cors({
-        origin:'*'
+        origin:'*',
+        methods:['GET','POST','PUT','PATCH'],
+        credentials:true
     }
     ));
     app.use(express.json())
