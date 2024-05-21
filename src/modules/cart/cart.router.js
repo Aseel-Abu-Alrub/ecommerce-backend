@@ -4,7 +4,7 @@ import { endPoint } from "../cart/cart.endpoint.js"
 import { auth } from "../../middleware/auth.js"
 const router=Router()
 
-router.post('/:id/add',auth(endPoint.create),cartController.createCart)
+router.post('/:id/add',cartController.createCart)
 router.patch('/removeItem',auth(endPoint.delete),cartController.removeItem)
 router.patch('/clear',auth(endPoint.clear),cartController.clearCart)
 router.get('/',auth(endPoint.get),cartController.getCart)
