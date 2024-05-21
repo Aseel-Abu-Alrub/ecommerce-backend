@@ -16,11 +16,7 @@ const initApp=(app,express)=>{
     //     credentials:true,            
     //optionSuccessStatus:200
     // }
-    app.use(cors({
-        origin:'http://127.0.0.1:5000',
-        credentials:true
-    }
-    ));
+    app.use(cors())
     app.use(express.json())
     connectDB()
     app.get('/',(req,res)=>{
