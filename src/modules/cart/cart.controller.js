@@ -3,7 +3,7 @@ import cartModel from "../../../DB/model/cart.model.js"
 export const createCart=async(req,res,next)=>{
     const{productId,quantity}=req.body
 
-    const cart=await cartModel.findOne({userId:req.user._id}).populate("products.productId")
+    const cart=await cartModel.findOne({userId:req.user._id})
 
     if(!cart){
     const newCart=await cartModel.create({userId:req.user._id,products:{productId,quantity}})
@@ -13,7 +13,7 @@ export const createCart=async(req,res,next)=>{
     let matchedProduct=false
     for(let i=0;i<cart.products.length;i++){
         if(cart.products[i].productId == productId){
-            cart.products[i].quantity=quantity
+            cart.products[i].quantity=quantity || 1
             matchedProduct=true;
             break;
         }
