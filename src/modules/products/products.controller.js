@@ -62,7 +62,7 @@ if(await productModel.findOne({name:req.body.name}).select("name")){
       }}})
 
       await productModel.updateOne({name:req.body.name}
-        ,{
+        ,{ 
       $push:{size:{
         sizee:req.body.sizee
       }}})

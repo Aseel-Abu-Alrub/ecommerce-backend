@@ -3,7 +3,7 @@ import cartModel from "../../../DB/model/cart.model.js"
 export const createCart=async(req,res,next)=>{
     const{productId,quantity}=req.body
 
-    const cart=await cartModel.findOne({userId:req.user._id})
+    const cart=await cartModel.findOne({userId:req.user._id}).populate("products.productId")
 
     if(!cart){
     const newCart=await cartModel.create({userId:req.user._id,products:{productId,quantity}})
