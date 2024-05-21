@@ -11,7 +11,12 @@ import cors from 'cors'
 import { globalErrorHandler } from './services/errorHandling.js'
 
 const initApp=(app,express)=>{
-    //app.use(cors())
+    const corsOrigin ={
+        origin:'http://localhost:3000', //or whatever port your frontend is using
+        credentials:true,            
+        optionSuccessStatus:200
+    }
+    app.use(cors(corsOrigin));
     app.use(express.json())
     connectDB()
     app.get('/',(req,res)=>{
