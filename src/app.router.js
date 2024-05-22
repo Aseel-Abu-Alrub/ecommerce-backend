@@ -7,11 +7,29 @@ import couponRouter from './modules/coupon/coupon.router.js'
 import cartRouter from './modules/cart/cart.router.js'
 import orderRouter from './modules/order/order.router.js'
 import userRouter from './modules/user/user.router.js'
+import cors from 'cors'
 import { globalErrorHandler } from './services/errorHandling.js'
 
 const initApp=(app,express)=>{
     app.use(express.json())
     connectDB()
+    app.use(cors())
+    app.use((req,res,next)=>{
+        res.setHeader(
+         'Access-Control-Allow-Origin',
+         "*"   
+        );
+        res.setHeader(
+            'Access-Control-Allow-Methods',
+            "GET,PUT,PATCH,POST,DELETE,OPTIONS,CONNECT"
+           );
+        res.setHeader(
+            'Access-Control-Allow-Headers',
+            "Content-Type,Authorization,X-Content-Type-Options,Accept,X-Requested-With,Origin,Access-Control-Request-Method,Access-Control-Request-Headers"   
+           );
+           res.setHeader(
+            'Access-Control-Allow-Credentials',true);
+    })
     app.get('/',(req,res)=>{
         return res.json('welcome')
     })

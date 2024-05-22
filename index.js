@@ -1,10 +1,8 @@
 import "dotenv/config"
 import express from "express"
 import initApp from "./src/app.router.js"
-import cors from 'cors'
 
 const app=express()
-app.use(cors())
 
 const PORT=process.env.PORT || 3000
 
