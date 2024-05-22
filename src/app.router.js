@@ -13,16 +13,16 @@ import { globalErrorHandler } from './services/errorHandling.js'
 const initApp=(app,express)=>{
     app.use(express.json())
     connectDB()
-    app.use(cors())
+    app.use(cors({
+        origin:'*',
+        credentials: true,
+        methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+        allowedHeaders: ['Content-Type', 'Authorization'],
+        preflightContinue: false,
+        optionsSuccessStatus: 204
+    }))
 
-    app.get("/", (req, res) => {
-        res.setHeader("Access-Control-Allow-Origin", "*")
-        res.setHeader("Access-Control-Allow-Credentials", "true");
-        res.setHeader("Access-Control-Max-Age", "1800");
-        res.setHeader("Access-Control-Allow-Headers", "content-type");
-        res.setHeader( "Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, PATCH, OPTIONS" ); 
-         });
-        
+ 
    
     app.get('/',(req,res)=>{
         return res.json('welcome')
