@@ -11,9 +11,9 @@ import cors from 'cors'
 import { globalErrorHandler } from './services/errorHandling.js'
 
 const initApp=(app,express)=>{
+    app.use(cors())
     app.use(express.json())
     connectDB()
-    app.use(cors())
     app.get('/',(req,res)=>{
         return res.json('welcome')
     })
