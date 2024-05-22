@@ -13,15 +13,7 @@ import { globalErrorHandler } from './services/errorHandling.js'
 const initApp=(app,express)=>{
     app.use(express.json())
     connectDB()
-    app.use(cors({
-    origin:'http://localhost:3000',
-    credentials:true,
-    methods:['GET','POST','PUT','PATCH','OPTIONS'],
-    optionsSuccessStatus:204,
-    
-    
-  
-    }))
+    app.use(cors())
     app.get('/',(req,res)=>{
         return res.json('welcome')
     })
