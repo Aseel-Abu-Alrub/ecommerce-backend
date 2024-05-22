@@ -25,7 +25,7 @@ const initApp=(app,express)=>{
     app.options("*", (req, res) => {
         console.log("preflight");
         if (
-          req.headers.origin === "https://badmintown.onrender.com" &&
+          req.headers.origin === "https://ecommerce-g0io.onrender.com" &&
           allowMethods.includes(req.headers["access-control-request-method"]) &&
           allowHeaders.includes(req.headers["access-control-request-headers"])
         ) {
