@@ -2,6 +2,7 @@ import cartModel from "../../../DB/model/cart.model.js"
 
 export const createCart=async(req,res,next)=>{
     //  const productId=req.params.id
+    return res.json("hi")
     const{quantity,productId}=req.body
     
     // if(!await productModel.findById({_id:productId})){
