@@ -13,7 +13,8 @@ import { globalErrorHandler } from './services/errorHandling.js'
 const initApp=(app,express)=>{
     app.use(express.json())
     connectDB()
-    
+    app.use(cors())
+
     app.get('/',(req,res)=>{
         return res.json('welcome')
     })
@@ -26,7 +27,6 @@ const initApp=(app,express)=>{
     app.use('/cart',cartRouter)
     app.use('/order',orderRouter)
     app.use('/profile',userRouter)
-    app.use(cors())
 
     app.get('/*',(req,res)=>{
         return res.json('page not found')
