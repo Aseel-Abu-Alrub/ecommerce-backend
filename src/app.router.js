@@ -34,7 +34,7 @@ const initApp=(app,express)=>{
         } else {
           console.log("fail");
 
-        }
+        }})
     
     app.get('/',(req,res)=>{
         return res.json('welcome')
