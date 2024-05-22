@@ -6,7 +6,7 @@ import cors from 'cors'
 import { asyncHandler } from "../../services/errorHandling.js"
 const router=Router()
 
-router.post('/add',asyncHandler(cartController.createCart))
+router.post('/add',auth(endPoint.create),asyncHandler(cartController.createCart))
 router.patch('/removeItem',auth(endPoint.delete),cartController.removeItem)
 router.patch('/clear',auth(endPoint.clear),cartController.clearCart)
 router.get('/',auth(endPoint.get),cartController.getCart)
