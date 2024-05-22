@@ -7,14 +7,11 @@ import couponRouter from './modules/coupon/coupon.router.js'
 import cartRouter from './modules/cart/cart.router.js'
 import orderRouter from './modules/order/order.router.js'
 import userRouter from './modules/user/user.router.js'
-import cors from 'cors'
 import { globalErrorHandler } from './services/errorHandling.js'
 
 const initApp=(app,express)=>{
     app.use(express.json())
     connectDB()
-    app.use(cors())
-
     app.get('/',(req,res)=>{
         return res.json('welcome')
     })
