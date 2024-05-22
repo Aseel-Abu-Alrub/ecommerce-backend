@@ -2,7 +2,6 @@ import cartModel from "../../../DB/model/cart.model.js"
 
 export const createCart=async(req,res,next)=>{
     //  const productId=req.params.id
-    return res.json("hi")
     const{quantity,productId}=req.body
     
     // if(!await productModel.findById({_id:productId})){
@@ -14,7 +13,7 @@ export const createCart=async(req,res,next)=>{
     if(!cart){
     const newCart=await cartModel.create({userId:req.user._id,products:{productId,quantity}})
 
-    return res.status(200).json({message:"success",newCart}) 
+    return res.status(200).json({message:"success",newCart})
     }
     let matchedProduct=false
     for(let i=0;i<cart.products.length;i++){
