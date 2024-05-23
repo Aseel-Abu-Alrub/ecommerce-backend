@@ -17,8 +17,7 @@ const initApp=(app,express)=>{
     connectDB()
     
     app.use(cors({
-        origin:['http://localhost:3000','http://localhost:3001','https://ecommerce-g0io.onrender.com'],
-        credentials: true,
+        origin:'*',
          methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
         // allowedHeaders: ['Content-Type', 'Authorization','origin','X-Requested-With','Accept'],
         
