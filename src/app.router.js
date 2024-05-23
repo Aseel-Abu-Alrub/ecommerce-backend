@@ -11,18 +11,18 @@ import cors from 'cors'
 import { globalErrorHandler } from './services/errorHandling.js'
 
 const initApp=(app,express)=>{
-    app.use(cors({
-        origin:'*',
-        credentials: true,
-         methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-        // allowedHeaders: ['Content-Type', 'Authorization','origin','X-Requested-With','Accept'],
-      
-    }))
+   
     app.use(express.json())
   
     connectDB()
     
-
+    app.use(cors({
+        origin:['http://localhost:3000','http://localhost:3001'],
+        credentials: true,
+         methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+        // allowedHeaders: ['Content-Type', 'Authorization','origin','X-Requested-With','Accept'],
+        
+    }))
    
     
     app.get('/',(req,res)=>{
