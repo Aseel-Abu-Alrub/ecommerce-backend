@@ -11,15 +11,15 @@ import cors from 'cors'
 import { globalErrorHandler } from './services/errorHandling.js'
 
 const initApp=(app,express)=>{
-    app.use(express.json())
     app.use(cors({
         origin:'*',
         credentials: true,
          methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
         // allowedHeaders: ['Content-Type', 'Authorization','origin','X-Requested-With','Accept'],
-        preflightContinue: true,
-        optionsSuccessStatus: 204
+      
     }))
+    app.use(express.json())
+  
     connectDB()
     
 
