@@ -38,6 +38,6 @@ const initApp = (app, express) => {
     });
 
     app.use(globalErrorHandler);
-};
+}; 
 
 export default initApp;
