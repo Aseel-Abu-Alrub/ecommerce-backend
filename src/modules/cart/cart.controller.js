@@ -68,12 +68,11 @@ export const updateQuantity=async(req,res,next)=>{
     const cart=await cartModel.findOne({userId:req.user._id})
 
     let matchedProduct=false
-     let p=''
+
     for(let i=0;i<cart.products.length;i++){
         if(cart.products[i].productId == productId){
-            cart.products[i].quantity=quantity 
+            (cart.products[i].quantity)++
             matchedProduct=true
-            p=i
             break;
         }
 
