@@ -9,5 +9,5 @@ router.post("/add", auth(endPoint.create), asyncHandler(cartController.createCar
 router.patch("/removeItem", auth(endPoint.delete), cartController.removeItem);
 router.patch("/clear", auth(endPoint.clear), cartController.clearCart);
 router.get("/", auth(endPoint.get), cartController.getCart);
-
+router.patch("/:id/quantity",auth(endPoint.update),asyncHandler(cartController.updateQuantity))
 export default router;

@@ -1,4 +1,5 @@
 import cartModel from "../../../DB/model/cart.model.js"
+import productModel from "../../../DB/model/product.model.js"
 
 export const createCart=async(req,res,next)=>{
     const{quantity,productId}=req.body
@@ -52,4 +53,35 @@ export const getCart=async(req,res,next)=>{
 
 const cart=await cartModel.findOne({userId:req.user._id}).populate("products.productId")
 return res.status(201).json({message:"success",cart})
+}
+
+export const updateQuantity=async(req,res,next)=>{
+    const productId=req.params.id
+    const {quantity}=req.body
+    if(! await productModel.findById({_id:productId})){
+    return res.status(400).json({message:`product with id ${productId} not found`})
+    }
+    const cart=await cartModel.findOne({userId:req.user._id})
+
+    let matchedProduct=false
+     let p=''
+    for(let i=0;i<cart.products.length;i++){
+        if(cart.products[i].productId == productId){
+            cart.products[i].quantity=quantity 
+            matchedProduct=true
+            p=i
+            break;
+        }
+
+    }
+
+    if(matchedProduct){
+     await cart.save()
+    }
+
+    return res.status(200).json({message:"success",cart}) 
+
+
+
+
 }
