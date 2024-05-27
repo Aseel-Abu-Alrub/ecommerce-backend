@@ -52,6 +52,10 @@ return res.status(201).json({message:"success"})
 export const getCart=async(req,res,next)=>{ 
 
 const cart=await cartModel.findOne({userId:req.user._id}).populate("products.productId")
+if(!cart){
+   return res.status(201).json({message:"cart is Empty"})
+ 
+}
 return res.status(201).json({message:"success",cart})
 }
 
