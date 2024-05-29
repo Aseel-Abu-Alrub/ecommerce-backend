@@ -65,7 +65,7 @@ export const updateQuantity=async(req,res,next)=>{
     if(! await productModel.findById({_id:productId})){
     return res.status(400).json({message:`product with id ${productId} not found`})
     }
-    const cart=await cartModel.findOne({userId:req.user._id})
+    const cart=await cartModel.findOne({userId:req.user._id}).populate('products.productId')
 
     let matchedProduct=false
 
