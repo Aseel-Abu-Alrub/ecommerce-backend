@@ -36,6 +36,9 @@ const productSchema=new Schema({
     type:Number,
     required:true
    },
+   Color:{
+    type:String
+   },
    Size:{
     type:String
    },

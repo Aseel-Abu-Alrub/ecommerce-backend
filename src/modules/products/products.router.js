@@ -20,5 +20,7 @@ router.put('/:id',productController.updateProduct)
 router.patch('/:id/rating',productController.updateRating)
 router.patch('/:id/decrease',productController.decreaseRating)
 router.get('/:id', asyncHandler(productController.getSpesificProduct))
+router.patch('/:id/color',asyncHandler(productController.updateSizeColor))
+
 
 export default router

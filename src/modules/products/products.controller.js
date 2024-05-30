@@ -219,3 +219,21 @@ return res.status(200).json({message:"success",count:newProduct.length,newProduc
 
 
    }
+
+   export const updateSizeColor=async(req,res,next)=>{
+    const product=await productModel.findById(req.params.id)
+    if(!product){
+      return res.status(400).json({message:`product with if ${req.params.id} not found `})
+    } 
+    if(req.body.Size){
+      product.Size=req.body.Size
+    }
+
+    if(req.body.Color){
+      product.Color=req.body.Color
+    }
+     
+   await product.save()
+   return res.status(200).json({message:"success",product})
+
+   }
