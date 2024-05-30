@@ -70,8 +70,8 @@ export const updateQuantity=async(req,res,next)=>{
     let matchedProduct=false
 
     for(let i=0;i<cart.products.length;i++){
-        if(cart.products[i].productId == productId){
-            (cart.products[i].quantity)++
+        if(cart.products[i].productId._id == productId){
+            (cart.products[i].quantity)++ 
             matchedProduct=true
             break;
         }
