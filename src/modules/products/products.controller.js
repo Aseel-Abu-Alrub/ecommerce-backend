@@ -93,6 +93,9 @@ for(const file of req.files.subImages){
     }) 
     req.body.subImages.push({secure_url,public_id})
 }
+if(req.body.Size){
+  
+}
 
 req.body.createdBy=req.user._id
 req.body.updateddBy=req.user._id
