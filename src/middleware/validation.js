@@ -1,7 +1,7 @@
 import joi from "joi"
 
 export const generalFields={
-    id:joi.string().min(24).max(24).required() ,
+    id:joi.string().min(24).max(24),
     email:joi.string().email().required().min(5).messages({
         'string.empty':"email is required",
         'string.email':"plz enter a valid email"
