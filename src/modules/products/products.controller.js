@@ -231,6 +231,7 @@ return res.status(200).json({message:"success",count:newProduct.length,newProduc
 
     if(req.body.Color){
       product.Color=req.body.Color
+     
     }
      
    await product.save()

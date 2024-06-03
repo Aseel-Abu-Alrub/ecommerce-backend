@@ -1,4 +1,4 @@
-import {Schema,Types,model} from 'mongoose'
+import mongoose, {Schema,Types,model} from 'mongoose'
 
 const reviewSchema=new Schema({
   comment:{
@@ -16,6 +16,12 @@ const reviewSchema=new Schema({
    ref:'User',
    required:true 
   },
-  carId:{type:Types.ObjectId,ref:'Car',required:true},
+  productId:{type:Types.ObjectId,ref:'Product',required:true},
   orderId:{type:Types.ObjectId,ref:'Order',required:true}
+},{
+ timestamps:true 
 })
+
+const reviewModel= mongoose.models.Review || model('Review',reviewSchema)
+
+export default reviewModel
