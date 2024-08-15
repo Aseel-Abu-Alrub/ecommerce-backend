@@ -4,16 +4,16 @@ import reviewModel from "../../../DB/model/review.model.js"
 
 export const createReview=async(req,res,next)=>{
  const{productId}=req.params
- const{comment,rating}=req.body
+ const{comment}=req.body
  const product=await productModel.findById(productId)
  if(!product){
    return next(new Error(`this product with id ${productId} not found`,{cause:404})) 
  }  
  
  const order=await orderModel.findOne({
-   userId:req.user._id,
+   userId:req.user._id, 
    status:'deliverd',
-   'products.productId':productId
+   'products.productId':productId 
  })
  
 if(!order){
@@ -53,6 +53,13 @@ export const getReview=async(req,res,next)=>{
   return res.status(200).json({message:"success",review})
 }
 
+export const getSpesificReview=async(req,res,next)=>{
+ const{id}=req.params 
+ const review=await reviewModel.find({productId:id}).populate('createdBy')  
+
+ return res.status(200).json({message:"success",review})
+}
+
 export const getAllReview=async(req,res,next)=>{
   const review=await reviewModel.find({}).populate("createdBy")  
   return res.status(200).json({message:"success",review})
@@ -78,6 +85,25 @@ await review.save()
 return res.status(200).json({message:"success",review})
 
 
+}
+
+export const updateRating=async(req,res,next)=>{ 
+  
+
+    const product=await productModel.findById(req.params.id)
+    if(!product){
+      return res.status(400).json({message:`product with if ${req.params.id} not found `})
+    } 
+    
+      const ratingg= await reviewModel.findOneAndUpdate({productId:req.params.id},{$inc:{rating:1}})
+     if(ratingg.rating>3){
+      return res.json("rating more than 5")
+    
+        }
+   
+   return res.status(200).json({message:"success",ratingg})
+    
+   
 }
 
 export const deleteReview=async(req,res,next)=>{
